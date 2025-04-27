@@ -210,15 +210,19 @@ const admin = [ {
       "password": "123"
     }]
   
-
+//creating local storage that saves data in user browser.
+//we saved employees data in local storage.
+//Our data is in form of JSON so we converted it into string because then only we can see it correctly.
 export const setLocalStorage = () => {
     localStorage.setItem('employess', JSON.stringify(employees))
     localStorage.setItem('admin', JSON.stringify(admin))
 }
+
+
 export const getLocalStorage = () => {
-    const employess = JSON.parse(localStorage.getItem('employess'))
+    const employees = JSON.parse(localStorage.getItem('employess'))
     const admin = JSON.parse(localStorage.getItem('admin'))
-    console.log(`employess : ${employees}`)
-    console.log(`admin : ${admin}`)
+    console.log(`employess ka data : ${employees}`)
+    console.log(`admin ka data : ${admin}`)
     console.log(admin)
 }
