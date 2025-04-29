@@ -225,4 +225,5 @@ export const getLocalStorage = () => {
     console.log(`employess ka data : ${employees}`)
     console.log(`admin ka data : ${admin}`)
     console.log(admin)
+    return {employees, admin}
 }
