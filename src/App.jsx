@@ -23,26 +23,36 @@ function App() {
 
   useEffect(() => {
 
-    if(authData){
-      //localStorage.getItem returns null if key does not exist.
-      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
-      console.log('value of loggedInUser : ', loggedInUser)
-      if(loggedInUser){
-        setUser({role : loggedInUser.role})
-      }
-      console.log('user after useEffect of logged in : ', user)
+    // if(authData){
+    //   //localStorage.getItem returns null if key does not exist.
+    //   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
+    //   console.log('value of loggedInUser : ', loggedInUser)
+    //   if(loggedInUser){
+    //     setUser({role : loggedInUser.role})
+    //   }
+    //   console.log('user after useEffect of logged in : ', user)
+    // }
+
+    const loggedInUser = localStorage.getItem('loggedInUser')
+    if(loggedInUser){
+      const userData = JSON.parse(loggedInUser)
+      setUser({role : userData.role})
+      setLoggedInUserData(userData.data)
+      console.log('inside useeffect userData : ', userData)
     }
-  },[authData])
+  },[])
 
   console.log('value of user outside useEffect : ', user)
   
   const handleLogin = (email, password) => {
     if(email === 'admin@me.com' && password === '123'){
 
-
+      const admin = authData.admin[0]
+      console.log('value of admin after login handle : ', admin)
       setUser({role:'admin'})
+      setLoggedInUserData(admin)
 
-      localStorage.setItem('loggedInUser', JSON.stringify({role:'admin'}))
+      localStorage.setItem('loggedInUser', JSON.stringify({role:'admin', data: admin}))
 
       console.log('value of user from app : ', user) 
     }
@@ -51,7 +61,7 @@ function App() {
 
       if(employee){
 
-        localStorage.setItem('loggedInUser', JSON.stringify({role:'employee'}))
+        localStorage.setItem('loggedInUser', JSON.stringify({role:'employee', data: employee}))
 
         setUser({role:'employee'})
 
@@ -65,12 +75,13 @@ function App() {
   }
 
  
-
+  console.log('value of loggedInUserData : ', loggedInUserData, 'user : ', user)
   return (
     <>
-      {!loggedInUserData ? <Login handleLogin = {handleLogin} /> : ('')}
-      {user.role === 'admin' ? <AdminDashboard /> : 
-      user.role === 'employee' ? <EmployeeDashboard data ={loggedInUserData}/> : ''}
+      {!loggedInUserData ? <Login handleLogin = {handleLogin} /> : (
+      user.role === 'admin' ? <AdminDashboard /> : 
+      user.role === 'employee' ? <EmployeeDashboard data ={loggedInUserData}/> : ''
+      )}
       {/* <EmployeeDashboard />
       <AdminDashboard /> */}
     </>

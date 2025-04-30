@@ -1,6 +1,8 @@
+import { useContext } from "react"
 
 
 const AllTask = () => {
+    const authData = useContext(A)
 
     return (
         <div className="bg-[#1c1c1c] h-48 overflow-auto p-5 mt-5 rounded ">

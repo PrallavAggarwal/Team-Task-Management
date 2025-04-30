@@ -206,7 +206,8 @@ const employees = [
 const admin = [{
   "id": 1,
   "email": "admin@example.com",
-  "password": "123"
+  "password": "123",
+  "firstName" : "Prallav"
 }];
 
 //creating local storage that saves data in user browser.
