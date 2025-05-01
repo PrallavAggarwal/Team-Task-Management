@@ -4,15 +4,16 @@ import AllTask from "../Other/AllTask"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthProvider"
 
-const AdminDashboard = () => {
-    const data = useContext(AuthContext)
-    const adminData = data.admin[0]
+const AdminDashboard = ({changeUser}) => {
+    const [userData, setUserData] = useContext(AuthContext)
+    console.log('userData : ', userData)
+    const adminData = userData.admin[0]
     console.log('admin Data' , adminData.firstName)
 
     return (
         <div className="h-screen w-full p-10">
             <h1>AdminDashboard</h1>
-            <Header data={adminData}/>
+            <Header changeUser = {changeUser} data={adminData}/>
             <CreateTask data={adminData}/>
             <AllTask data={adminData}/>
         </div>

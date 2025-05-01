@@ -18,8 +18,8 @@ function App() {
     role: ""
   })
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-  const authData = useContext(AuthContext)
-  console.log('data from useContext : ',authData)
+  const [userData, setUserData] = useContext(AuthContext)
+  console.log('data from useContext : ',userData)
 
   useEffect(() => {
 
@@ -47,7 +47,7 @@ function App() {
   const handleLogin = (email, password) => {
     if(email === 'admin@me.com' && password === '123'){
 
-      const admin = authData.admin[0]
+      const admin = userData.admin[0]
       console.log('value of admin after login handle : ', admin)
       setUser({role:'admin'})
       setLoggedInUserData(admin)
@@ -56,8 +56,8 @@ function App() {
 
       console.log('value of user from app : ', user) 
     }
-    else if(authData){
-      const employee = authData.employees.find((e) => e.email === email && e.password === password)
+    else if(userData){
+      const employee = userData.employees.find((e) => e.email === email && e.password === password)
 
       if(employee){
 
@@ -79,8 +79,8 @@ function App() {
   return (
     <>
       {!loggedInUserData ? <Login handleLogin = {handleLogin} /> : (
-      user.role === 'admin' ? <AdminDashboard /> : 
-      user.role === 'employee' ? <EmployeeDashboard data ={loggedInUserData}/> : ''
+      user.role === 'admin' ? <AdminDashboard changeUser = {setUser} /> : 
+      user.role === 'employee' ? <EmployeeDashboard changeUser = {setUser} data ={loggedInUserData}/> : ''
       )}
       {/* <EmployeeDashboard />
       <AdminDashboard /> */}
